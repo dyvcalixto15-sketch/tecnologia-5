@@ -752,6 +752,29 @@ main:focus,h1:focus,h2:focus{outline:none}
 @media (max-width:420px){.hand.n6{position:static!important;flex:0 0 100%;text-align:center;max-width:none!important}}
 @media (max-width:480px){.rs-t{font-size:16px}.rs-t th,.rs-t td{padding:12px 9px}}
 @media (min-width:901px) and (max-width:1180px){.bar .w{font-size:min(6.8vw,calc((100vw - var(--gl) - var(--gr))/8.8))}}
+
+/* ===== ajustes finos ===== */
+/* pie: la nota manuscrita ya no roza el título grande */
+.hfoot .big2 .hand{top:-.95em;right:0}
+/* «Tres pasos»: la tarjeta 3 ya no se sale por abajo */
+.t3{height:auto;min-height:420px;padding-bottom:30px}
+/* «Para pensar» respira frente al bloque anterior */
+.pp{margin-top:clamp(20px,3vw,32px)}
+/* números en «Elige un apartado», igual que en el inicio */
+.abar .nmw{display:inline-flex;align-items:baseline;gap:.18em;max-width:100%}
+.abar .nm .no{font-size:.5em;letter-spacing:0;flex:none}
+/* la flecha de los botones se adelanta un poco al pasar el mouse */
+.btn svg{transition:transform .18s var(--ease)}
+@media (hover:hover) and (pointer:fine){.btn:not([disabled]):hover svg:last-child{transform:translateX(3px)}}
+/* «Elige un apartado» en pantallas medianas y pequeñas: el nombre ocupa todo el ancho
+   y los dibujos van junto a la descripción, así nada se tapa */
+@media (max-width:900px){
+  .abar-in>div:first-child{display:contents}
+  .abar .nm{grid-column:1/-1;grid-row:1}
+  .abar .ds{grid-column:1;grid-row:2;margin-top:0}
+  .abar .emb{grid-column:2;grid-row:2;align-self:center;justify-self:end}
+  .abar .meta{grid-row:3}
+}
 </style></head><body><div id="app"></div><noscript><p style="font:600 20px/1.5 sans-serif;padding:32px;max-width:36em">Esta página necesita JavaScript para funcionar. Actívalo en tu navegador e inténtalo otra vez.</p></noscript><script>(function(){
 'use strict';
 /* ===== Tecnología 5.º · núcleo: utilidades, íconos, estado ===== */
@@ -1500,7 +1523,7 @@ function apartadosPage(){
     const stt=lk?`<span class="stt">${I.lock('#12203F',16)} Se abre al terminar los cinco</span>`:done?`<span class="stt">${I.ck(14)} Completado</span>`:any?`<span class="stt cur">En curso</span>`:'';
     const steps=lk?`<span class="lkr"><button class="lnk" type="button" data-demo>abrir en modo demostración</button></span>`:`<span class="stps">${['mira','lee','practica'].map((k,j)=>`<a href="${apLink(n,k)}" class="${stepDone(n,k)?'dn':''}">${stepDone(n,k)?I.ck(14):''}${['Mira','Lee','Practica'][j]}</a>`).join('')}</span>`;
     const emb=a.emb.map(([s,h,r])=>stf(s,h,r)).join('');
-    const nm=lk?`<span>${a.name==='Reto final'?'reto final':a.name}</span>`:`<a href="${apLink(n,'mira')}">${a.name}</a>`;
+    const nm=lk?`<span class="nmw"><span class="no">${n}.</span><span>${a.name==='Reto final'?'reto final':a.name}</span></span>`:`<a class="nmw" href="${apLink(n,'mira')}"><span class="no">${n}.</span><span>${a.name}</span></a>`;
     return `<article class="abar ${c} ${lk?'lk':''}" data-r><div class="abar-in"><div><h2 class="nm">${nm}</h2><p class="ds">${a.desc.replace('<br>',' ')}</p></div><div class="meta">${stt}${steps}</div><div class="emb" aria-hidden="true">${emb}</div></div></article>`;
   };
   return `<div class="page aps dark-none"><div class="wrap"><div class="aps-h"><div><h1 class="big" style="--t:clamp(46px,8vw,104px)">${lines(['Elige un apartado'])}</h1>
